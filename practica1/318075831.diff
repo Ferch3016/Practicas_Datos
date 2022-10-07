@@ -1,0 +1,1564 @@
+diff --git a/.gitignore b/.gitignore
+deleted file mode 100644
+index a23237e..0000000
+--- a/.gitignore
++++ /dev/null
+@@ -1,6 +0,0 @@
+-*.class
+-*.jar
+-*~
+-.DS*
+-._*
+-target
+diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+deleted file mode 100644
+index 183d9ff..0000000
+--- a/.gitlab-ci.yml
++++ /dev/null
+@@ -1,3 +0,0 @@
+-test:
+-  script:
+-    - /bin/true
+diff --git a/README.md b/README.md
+deleted file mode 100644
+index 60c2c10..0000000
+--- a/README.md
++++ /dev/null
+@@ -1,61 +0,0 @@
+-Estructuras de Datos
+-====================
+-
+-Práctica 1: Listas
+-------------------
+-
+-### Fecha de entrega: martes 30 de agosto, 2022
+-
+-Deben implementar los métodos faltantes de la clase
+-[`Lista`](https://aztlan.fciencias.unam.mx/gitlab/2023-1-edd/practica1/blob/main/src/main/java/mx/unam/ciencias/edd/Lista.java).
+-
+-Una vez que hayan terminado su clase, debe compilar al hacer:
+-
+-```
+-$ mvn compile
+-```
+-
+-También debe pasar todas sus pruebas unitarias al hacer:
+-
+-```
+-$ mvn test
+-```
+-
+-Por último, debe ejecutar correctamente el programa escrito en la clase
+-[`Practica1`](https://aztlan.fciencias.unam.mx/gitlab/2023-1-edd/practica1/blob/main/src/main/java/mx/unam/ciencias/edd/Practica1.java)
+-al ejecutar:
+-
+-```
+-$ mvn install
+-...
+-$ java -jar target/practica1.jar
+-```
+-
+-El único archivo que deben modificar es `Lista.java`. *No deben modificar de
+-ninguna manera ninguno de los otros archivos de la práctica*.
+-
+-### Repositorio
+-
+-Pueden clonar la práctica con el siguiente comando:
+-
+-```
+-$ git clone https://aztlan.fciencias.unam.mx/gitlab/2023-1-edd/practica1.git
+-```
+-
+-### Documentación
+-
+-La documentación generada por JavaDoc la pueden consultar aquí:
+-
+-[Documentación generada por JavaDoc para la práctica
+-1](https://aztlan.fciencias.unam.mx/~canek/2023-1-edd/practica1/apidocs/index.html)
+-
+-### Capítulos del libro
+-
+-Los capítulos
+-[del libro](https://tienda.fciencias.unam.mx/es/home/437-estructuras-de-datos-con-java-moderno-9786073009157.html)
+-relacionados a esta práctica son:
+-
+-2. Genéricos
+-3. Iteradores
+-4. Colecciones
+-5. Listas
+diff --git a/pom.xml b/pom.xml
+deleted file mode 100644
+index 6abc723..0000000
+--- a/pom.xml
++++ /dev/null
+@@ -1,136 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project xmlns="http://maven.apache.org/POM/4.0.0"
+-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+-                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+-  <modelVersion>4.0.0</modelVersion>
+-  <groupId>mx.unam.ciencias.edd</groupId>
+-  <artifactId>practica</artifactId>
+-  <version>EDD</version>
+-  <packaging>jar</packaging>
+-
+-  <name>Práctica 1</name>
+-  <description>
+-    Práctica 1 de Estructuras de Datos: Listas.
+-  </description>
+-  <url>https://aztlan.fciencias.unam.mx/gitlab/2023-1-edd/practica1</url>
+-  <organization>
+-    <name>Canek Peláez Valdés</name>
+-    <url>https://aztlan.fciencias.unam.mx/~canek/</url>
+-  </organization>
+-
+-  <properties>
+-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+-    <maven.compiler.release>11</maven.compiler.release>
+-  </properties>
+-
+-  <build>
+-    <plugins>
+-
+-      <plugin>
+-        <groupId>org.apache.maven.plugins</groupId>
+-        <artifactId>maven-enforcer-plugin</artifactId>
+-        <version>3.0.0-M3</version>
+-        <executions>
+-          <execution>
+-            <id>enforce-maven</id>
+-            <goals>
+-              <goal>enforce</goal>
+-            </goals>
+-            <configuration>
+-              <rules>
+-                <requireMavenVersion>
+-                  <version>3.1.0</version>
+-                </requireMavenVersion>
+-              </rules>
+-            </configuration>
+-          </execution>
+-        </executions>
+-      </plugin>
+-
+-      <plugin>
+-        <groupId>org.apache.maven.plugins</groupId>
+-        <artifactId>maven-compiler-plugin</artifactId>
+-        <version>3.8.1</version>
+-        <configuration>
+-          <compilerArgument>-Xlint:deprecation</compilerArgument>
+-          <compilerArgument>-Xlint:unchecked</compilerArgument>
+-          <debug>true</debug>
+-          <debuglevel>lines,vars,source</debuglevel>
+-          <showDeprecation>true</showDeprecation>
+-          <showWarnings>true</showWarnings>
+-        </configuration>
+-      </plugin>
+-
+-      <plugin>
+-	<groupId>org.apache.maven.plugins</groupId>
+-	<artifactId>maven-jar-plugin</artifactId>
+-        <version>3.2.0</version>
+-	<configuration>
+-	  <archive>
+-	    <manifest>
+-	      <mainClass>mx.unam.ciencias.edd.Practica1</mainClass>
+-	    </manifest>
+-	  </archive>
+-	</configuration>
+-      </plugin>
+-
+-      <plugin>
+-        <groupId>org.apache.maven.plugins</groupId>
+-        <artifactId>maven-site-plugin</artifactId>
+-        <version>3.9.1</version>
+-      </plugin>
+-
+-      <plugin>
+-        <groupId>org.apache.maven.plugins</groupId>
+-        <artifactId>maven-project-info-reports-plugin</artifactId>
+-        <version>3.1.1</version>
+-      </plugin>
+-
+-    </plugins>
+-
+-    <finalName>practica1</finalName>
+-  </build>
+-
+-  <reporting>
+-    <plugins>
+-
+-      <plugin>
+-        <groupId>org.apache.maven.plugins</groupId>
+-        <artifactId>maven-javadoc-plugin</artifactId>
+-        <version>3.2.0</version>
+-        <configuration>
+-          <source>11</source>
+-          <charset>UTF-8</charset>
+-          <author>false</author>
+-          <version>false</version>
+-          <use>true</use>
+-          <windowtitle>Estructuras de Datos</windowtitle>
+-          <doctitle><![CDATA[<h1>Estructuras de Datos</h1>]]></doctitle>
+-        </configuration>
+-      </plugin>
+-
+-      <plugin>
+-        <groupId>org.apache.maven.plugins</groupId>
+-        <artifactId>maven-surefire-report-plugin</artifactId>
+-        <version>3.0.0-M5</version>
+-      </plugin>
+-
+-      <plugin>
+-        <groupId>org.apache.maven.plugins</groupId>
+-        <artifactId>maven-jxr-plugin</artifactId>
+-        <version>3.0.0</version>
+-      </plugin>
+-
+-    </plugins>
+-  </reporting>
+-
+-  <dependencies>
+-    <dependency>
+-      <groupId>junit</groupId>
+-      <artifactId>junit</artifactId>
+-      <version>4.12</version>
+-    </dependency>
+-  </dependencies>
+-
+-</project>
+diff --git a/src/main/java/mx/unam/ciencias/edd/Coleccion.java b/src/main/java/mx/unam/ciencias/edd/Coleccion.java
+deleted file mode 100644
+index 0d19434..0000000
+--- a/src/main/java/mx/unam/ciencias/edd/Coleccion.java
++++ /dev/null
+@@ -1,55 +0,0 @@
+-package mx.unam.ciencias.edd;
+-
+-/**
+- * <p>Interface para colecciones, con operaciones para agregar y eliminar
+- * elementos, y consultar si un elemento está contenido, así como para obtener
+- * el número de elementos en la colección. Además, Las colecciones son
+- * iterables.</p>
+- *
+- * <p>Las colecciones no aceptan a <code>null</code> como elemento; el
+- * comportamiento de las clases que implementen esta interfaz no está definido
+- * si <code>null</code> es pasado como parámetro a ninguno de sus métodos.</p>
+- */
+-public interface Coleccion<T> extends Iterable<T> {
+-
+-    /**
+-     * Agrega un elemento a la colección.
+-     * @param elemento el elemento a agregar.
+-     * @throws IllegalArgumentException si <code>elemento</code> es
+-     *         <code>null</code>.
+-     */
+-    public void agrega(T elemento);
+-
+-    /**
+-     * Elimina un elemento de la colección.
+-     * @param elemento el elemento a eliminar.
+-     */
+-    public void elimina(T elemento);
+-
+-    /**
+-     * Nos dice si un elemento está contenido en la colección.
+-     * @param elemento el elemento que queremos verificar si está contenido en
+-     *                 la colección.
+-     * @return <code>true</code> si el elemento está contenido en la colección,
+-     *         <code>false</code> en otro caso.
+-     */
+-    public boolean contiene(T elemento);
+-
+-    /**
+-     * Nos dice si la colección es vacía.
+-     * @return <code>true</code> si la colección es vacía, <code>false</code> en
+-     *         otro caso.
+-     */
+-    public boolean esVacia();
+-
+-    /**
+-     * Regresa el número de elementos en la colección.
+-     * @return el número de elementos en la colección.
+-     */
+-    public int getElementos();
+-
+-    /**
+-     * Limpia la colección de elementos, dejándola vacía.
+-     */
+-    public void limpia();
+-}
+diff --git a/src/main/java/mx/unam/ciencias/edd/ExcepcionIndiceInvalido.java b/src/main/java/mx/unam/ciencias/edd/ExcepcionIndiceInvalido.java
+deleted file mode 100644
+index 7f02181..0000000
+--- a/src/main/java/mx/unam/ciencias/edd/ExcepcionIndiceInvalido.java
++++ /dev/null
+@@ -1,20 +0,0 @@
+-package mx.unam.ciencias.edd;
+-
+-/**
+- * Clase para excepciones de índices de lista inválidos.
+- */
+-public class ExcepcionIndiceInvalido extends IndexOutOfBoundsException {
+-
+-    /**
+-     * Constructor vacío.
+-     */
+-    public ExcepcionIndiceInvalido() {}
+-
+-    /**
+-     * Constructor que recibe un mensaje para el usuario.
+-     * @param mensaje un mensaje que verá el usuario cuando ocurra la excepción.
+-     */
+-    public ExcepcionIndiceInvalido(String mensaje) {
+-        super(mensaje);
+-    }
+-}
+diff --git a/src/main/java/mx/unam/ciencias/edd/IteradorLista.java b/src/main/java/mx/unam/ciencias/edd/IteradorLista.java
+deleted file mode 100644
+index 00d3bde..0000000
+--- a/src/main/java/mx/unam/ciencias/edd/IteradorLista.java
++++ /dev/null
+@@ -1,42 +0,0 @@
+-package mx.unam.ciencias.edd;
+-
+-import java.util.Iterator;
+-import java.util.NoSuchElementException;
+-
+-/**
+- * Interfaz para iteradores de lista. Un iterador de lista se puede visualizar
+- * como que está siempre entre dos elementos de la lista, o antes del primero, o
+- * después del último.
+- */
+-public interface IteradorLista<T> extends Iterator<T> {
+-
+-    /**
+-     * Nos dice si hay un elemento anterior. El método debe regresar
+-     * <code>true</code>, excepto cuando la lista esté vacía, o el iterador esté
+-     * antes del primer elemento.
+-     * @return <code>true</code> si el iterador tiene un elemento a su
+-     *         izquierda, <code>false</code> en otro caso.
+-     */
+-    public boolean hasPrevious();
+-
+-    /**
+-     * Regresa el elemento anterior al iterador, y lo mueve a la izquierda.
+-     * @return el elemento anterior al iterador.
+-     * @throws NoSuchElementException si el iterador no tiene elemento anterior.
+-     */
+-    public T previous();
+-
+-    /**
+-     * Mueve el iterador a la izquierda del primer elemento. Después de llamar
+-     * este método, el método {@link Iterator#hasNext} siempre regresa
+-     * <code>true</code> si la lista no es vacía.
+-     */
+-    public void start();
+-
+-    /**
+-     * Mueve el iterador a la derecha del último elemento. Después de llamar
+-     * este método, el método {@link IteradorLista#hasPrevious} siempre regresa
+-     * <code>true</code> si la lista no es vacía.
+-     */
+-    public void end();
+-}
+diff --git a/src/main/java/mx/unam/ciencias/edd/Lista.java b/src/main/java/mx/unam/ciencias/edd/Lista.java
+index c46daab..cb86762 100644
+--- a/src/main/java/mx/unam/ciencias/edd/Lista.java
++++ b/src/main/java/mx/unam/ciencias/edd/Lista.java
+@@ -1,8 +1,11 @@
+ package mx.unam.ciencias.edd;
+ 
++import java.lang.management.ThreadInfo;
+ import java.util.Iterator;
+ import java.util.NoSuchElementException;
+ 
++import javax.lang.model.element.Element;
++
+ /**
+  * <p>Clase genérica para listas doblemente ligadas.</p>
+  *
+@@ -27,7 +30,7 @@ public class Lista<T> implements Coleccion<T> {
+ 
+         /* Construye un nodo con un elemento. */
+         private Nodo(T elemento) {
+-            // Aquí va su código.
++            this.elemento = elemento;
+         }
+     }
+ 
+@@ -40,37 +43,48 @@ public class Lista<T> implements Coleccion<T> {
+ 
+         /* Construye un nuevo iterador. */
+         private Iterador() {
+-            // Aquí va su código.
++            siguiente = cabeza;
++
+         }
+ 
+         /* Nos dice si hay un elemento siguiente. */
+         @Override public boolean hasNext() {
+-            // Aquí va su código.
++            return siguiente != null;
+         }
+ 
+         /* Nos da el elemento siguiente. */
+         @Override public T next() {
+-            // Aquí va su código.
++            if(siguiente == null)
++            throw new NoSuchElementException("No hay un elemento después");
++            anterior = siguiente;
++            siguiente = siguiente.siguiente;
++            return anterior.elemento;
+         }
+ 
+         /* Nos dice si hay un elemento anterior. */
+         @Override public boolean hasPrevious() {
+-            // Aquí va su código.
++            return anterior != null;
+         }
+ 
+         /* Nos da el elemento anterior. */
+         @Override public T previous() {
+-            // Aquí va su código.
++            if(anterior == null)
++            throw new NoSuchElementException("No hay ningun elemento antes");
++            siguiente = anterior;
++            anterior = anterior.anterior;
++            return siguiente.elemento;
+         }
+ 
+         /* Mueve el iterador al inicio de la lista. */
+         @Override public void start() {
+-            // Aquí va su código.
++            this.siguiente = cabeza;
++            this.anterior = null;
+         }
+ 
+         /* Mueve el iterador al final de la lista. */
+         @Override public void end() {
+-            // Aquí va su código.
++            this.siguiente = null;
++            this.anterior = rabo;
+         }
+     }
+ 
+@@ -87,7 +101,7 @@ public class Lista<T> implements Coleccion<T> {
+      * @return la longitud de la lista, el número de elementos que contiene.
+      */
+     public int getLongitud() {
+-        // Aquí va su código.
++        return longitud;
+     }
+ 
+     /**
+@@ -96,7 +110,7 @@ public class Lista<T> implements Coleccion<T> {
+      * @return el número elementos en la lista.
+      */
+     @Override public int getElementos() {
+-        // Aquí va su código.
++        return longitud;
+     }
+ 
+     /**
+@@ -105,7 +119,9 @@ public class Lista<T> implements Coleccion<T> {
+      *         otro caso.
+      */
+     @Override public boolean esVacia() {
+-        // Aquí va su código.
++        return cabeza==null;
++
++        
+     }
+ 
+     /**
+@@ -117,7 +133,18 @@ public class Lista<T> implements Coleccion<T> {
+      *         <code>null</code>.
+      */
+     @Override public void agrega(T elemento) {
+-        // Aquí va su código.
++        if(elemento == null)
++        throw new IllegalArgumentException("No hay nada que agregar");
++        longitud ++;
++        Nodo n = new Nodo(elemento);
++        if(rabo == null) {
++            cabeza = rabo = n;
++        }else{
++            rabo.siguiente = n;
++            n.anterior = rabo;
++            rabo = n;
++        }
++
+     }
+ 
+     /**
+@@ -128,7 +155,18 @@ public class Lista<T> implements Coleccion<T> {
+      *         <code>null</code>.
+      */
+     public void agregaFinal(T elemento) {
+-        // Aquí va su código.
++        if (elemento == null)
++        throw new IllegalArgumentException("No hay nada que agregar");
++        longitud ++;
++        Nodo n = new Nodo(elemento);
++        if(rabo == null){
++            cabeza = rabo = n;
++        }else{
++            rabo.siguiente = n;
++            n.anterior = rabo;
++            rabo = n;
++        }
++        
+     }
+ 
+     /**
+@@ -139,7 +177,18 @@ public class Lista<T> implements Coleccion<T> {
+      *         <code>null</code>.
+      */
+     public void agregaInicio(T elemento) {
+-        // Aquí va su código.
++        if(elemento == null)
++        throw  new IllegalArgumentException("No hay nada que agregar");
++        longitud ++;
++        Nodo n = new Nodo(elemento);
++        if(cabeza == null){
++            cabeza = rabo = n;
++        }else{
++            n.siguiente = cabeza;
++            cabeza.anterior = n;
++            cabeza = n;
++        }
++
+     }
+ 
+     /**
+@@ -158,7 +207,29 @@ public class Lista<T> implements Coleccion<T> {
+      *         <code>null</code>.
+      */
+     public void inserta(int i, T elemento) {
+-        // Aquí va su código.
++        if(elemento == null)
++        throw new IllegalArgumentException("No hay nada que insertar");
++        if(i <= 0) {
++            agregaInicio(elemento);
++    
++        } else if (i >= longitud){
++         agregaFinal(elemento);
++            
++        } else {
++            Nodo esteNodo = cabeza;
++            int r = 0;
++            this.longitud++;
++            while(r != i){
++                esteNodo = esteNodo.siguiente;
++                r++;
++            }
++            Nodo n = new Nodo(elemento);
++            n.siguiente = esteNodo;
++            n.anterior = esteNodo.anterior;
++            esteNodo.anterior = n;
++            n.anterior.siguiente = n;
++        }
++     
+     }
+ 
+     /**
+@@ -167,7 +238,7 @@ public class Lista<T> implements Coleccion<T> {
+      * @param elemento el elemento a eliminar.
+      */
+     @Override public void elimina(T elemento) {
+-        // Aquí va su código.
++        
+     }
+ 
+     /**
+@@ -176,8 +247,18 @@ public class Lista<T> implements Coleccion<T> {
+      * @throws NoSuchElementException si la lista es vacía.
+      */
+     public T eliminaPrimero() {
+-        // Aquí va su código.
+-    }
++        if (cabeza == null)
++        throw new NoSuchElementException("La lista es vacia");
++        T e = cabeza.elemento;
++        if(cabeza.anterior == null){
++            cabeza = rabo = null;
++        }else{
++            cabeza = cabeza.anterior;
++            cabeza.siguiente = null;
++        }
++        return e;
++        }
++    
+ 
+     /**
+      * Elimina el último elemento de la lista y lo regresa.
+@@ -185,7 +266,17 @@ public class Lista<T> implements Coleccion<T> {
+      * @throws NoSuchElementException si la lista es vacía.
+      */
+     public T eliminaUltimo() {
+-        // Aquí va su código.
++        if(rabo==null)
++        throw new NoSuchElementException("La lista es vacia");
++        T e = rabo.elemento;
++        if(rabo.anterior == null){
++            rabo = cabeza = null;
++        }else{
++            rabo = rabo.anterior;
++            rabo.siguiente = null;
++
++    }
++    return e;
+     }
+ 
+     /**
+@@ -196,6 +287,7 @@ public class Lista<T> implements Coleccion<T> {
+      */
+     @Override public boolean contiene(T elemento) {
+         // Aquí va su código.
++        return false;
+     }
+ 
+     /**
+@@ -203,23 +295,35 @@ public class Lista<T> implements Coleccion<T> {
+      * @return una nueva lista que es la reversa la que manda llamar el método.
+      */
+     public Lista<T> reversa() {
+-        // Aquí va su código.
++        Lista<T> r = new Lista<T>();
++        Nodo n = cabeza;
++        while(n != null){
++            r.agregaInicio(n.elemento);
++            n = n.siguiente;
++        }
++        return r;
+     }
+ 
+     /**
+      * Regresa una copia de la lista. La copia tiene los mismos elementos que la
+      * lista que manda llamar el método, en el mismo orden.
+-     * @return una copiad de la lista.
++     * @return una copia de la lista.
+      */
+     public Lista<T> copia() {
+-        // Aquí va su código.
++        Lista<T> r = new Lista<T>();
++        for (Nodo n = cabeza; n != null; n=n.siguiente) {
++            r.agregaFinal(n.elemento);
++        }
++        return r;
+     }
+ 
+     /**
+      * Limpia la lista de elementos, dejándola vacía.
+      */
+     @Override public void limpia() {
+-        // Aquí va su código.
++        rabo = null;
++        cabeza = null;
++        longitud = 0;
+     }
+ 
+     /**
+@@ -228,7 +332,10 @@ public class Lista<T> implements Coleccion<T> {
+      * @throws NoSuchElementException si la lista es vacía.
+      */
+     public T getPrimero() {
+-        // Aquí va su código.
++        if(cabeza == null)
++        throw new NoSuchElementException("No hay elementos");
++        
++        return cabeza.elemento;
+     }
+ 
+     /**
+@@ -237,8 +344,12 @@ public class Lista<T> implements Coleccion<T> {
+      * @throws NoSuchElementException si la lista es vacía.
+      */
+     public T getUltimo() {
+-        // Aquí va su código.
+-    }
++        if(rabo== null)
++        throw new NoSuchElementException("No hay elementos");
++
++        return rabo.elemento;
++    }    
++    
+ 
+     /**
+      * Regresa el <em>i</em>-ésimo elemento de la lista.
+@@ -248,7 +359,14 @@ public class Lista<T> implements Coleccion<T> {
+      *         igual que el número de elementos en la lista.
+      */
+     public T get(int i) {
+-        // Aquí va su código.
++        if(i < 0 || i >= this.longitud)
++        throw new ExcepcionIndiceInvalido("Indice fuera de rango");
++        Nodo n = cabeza;
++        for(int j = 0; j<i ; j++)
++            n = n.siguiente;
++        return n.elemento;
++        
++        
+     }
+ 
+     /**
+@@ -258,7 +376,14 @@ public class Lista<T> implements Coleccion<T> {
+      *         no está contenido en la lista.
+      */
+     public int indiceDe(T elemento) {
+-        // Aquí va su código.
++        Nodo n = cabeza;
++        for(int i =0 ; i < this.longitud ; i++){
++            if(n.elemento == elemento){
++                return i;
++            }
++            n = n.siguiente;
++        }
++        return -1;
+     }
+ 
+     /**
+@@ -266,7 +391,17 @@ public class Lista<T> implements Coleccion<T> {
+      * @return una representación en cadena de la lista.
+      */
+     @Override public String toString() {
+-        // Aquí va su código.
++        String h = "[";
++        if(cabeza != null){
++            Nodo n = cabeza;
++            for(; n.siguiente!=null; n = n.siguiente){
++                h += n.elemento.toString() + ", ";
++            }
++            n = rabo;
++            h+= n.elemento.toString();
++        }
++        h+= "]";
++        return h;
+     }
+ 
+     /**
+@@ -279,7 +414,9 @@ public class Lista<T> implements Coleccion<T> {
+         if (objeto == null || getClass() != objeto.getClass())
+             return false;
+         @SuppressWarnings("unchecked") Lista<T> lista = (Lista<T>)objeto;
+-        // Aquí va su código.
++        
++        return true;
++
+     }
+ 
+     /**
+diff --git a/src/main/java/mx/unam/ciencias/edd/Practica1.java b/src/main/java/mx/unam/ciencias/edd/Practica1.java
+deleted file mode 100644
+index 7889629..0000000
+--- a/src/main/java/mx/unam/ciencias/edd/Practica1.java
++++ /dev/null
+@@ -1,71 +0,0 @@
+-package mx.unam.ciencias.edd;
+-
+-import java.util.Random;
+-
+-/**
+- * Práctica 1: Listas.
+- */
+-public class Practica1 {
+-
+-    public static void main(String[] args) {
+-        Random random = new Random();
+-        int total = 10 + random.nextInt(90);
+-        Lista<Integer> lista = new Lista<Integer>();
+-        int i;
+-
+-        for (i = 0; i < total/2; i++) {
+-            if (lista.getLongitud() != i) {
+-                System.out.println("La longitud de la lista es incorrecta.");
+-                System.exit(1);
+-            }
+-            int r = random.nextInt(total);
+-            lista.agregaFinal(r);
+-            if (lista.getUltimo() != r) {
+-                System.out.println("Error al agregar al final.");
+-                System.exit(1);
+-            }
+-        }
+-
+-        for (i = total/2; i < total; i++) {
+-            if (lista.getLongitud() != i) {
+-                System.out.println("La longitud de la lista es incorrecta.");
+-                System.exit(1);
+-            }
+-            int r = random.nextInt(total);
+-            lista.agregaInicio(r);
+-            if (lista.getPrimero() != r) {
+-                System.out.println("Error al agregar al inicio.");
+-                System.exit(1);
+-            }
+-        }
+-
+-        i = 0;
+-        int[] a = new int[total];
+-        for (Integer n : lista) {
+-            System.out.printf("Elemento %d: %d\n", i, n);
+-            a[i++] = n;
+-        }
+-
+-        System.out.println("Lista: " + lista);
+-
+-        for (i = 0; i < total; i++) {
+-            if (lista.get(i) != a[i]) {
+-                System.out.printf("Error al obtener el %d-ésimo elemento.\n", i);
+-                System.exit(1);
+-            }
+-        }
+-
+-        int p = lista.eliminaPrimero();
+-        System.out.printf("Primer elemento %d eliminado...\n", p);
+-        int u = lista.eliminaUltimo();
+-        System.out.printf("Último elemento %d eliminado...\n", u);
+-
+-        while (lista.getLongitud() > 0) {
+-            int n = random.nextInt(lista.getLongitud());
+-            int e = lista.get(n);
+-            System.out.printf("Eliminando %d...\n", e);
+-            lista.elimina(e);
+-            System.out.println("Lista resultante: " + lista);
+-        }
+-    }
+-}
+diff --git a/src/test/java/mx/unam/ciencias/edd/test/TestLista.java b/src/test/java/mx/unam/ciencias/edd/test/TestLista.java
+deleted file mode 100644
+index 4acc0b5..0000000
+--- a/src/test/java/mx/unam/ciencias/edd/test/TestLista.java
++++ /dev/null
+@@ -1,729 +0,0 @@
+-package mx.unam.ciencias.edd.test;
+-
+-import java.util.Iterator;
+-import java.util.NoSuchElementException;
+-import java.util.Random;
+-import mx.unam.ciencias.edd.Coleccion;
+-import mx.unam.ciencias.edd.ExcepcionIndiceInvalido;
+-import mx.unam.ciencias.edd.IteradorLista;
+-import mx.unam.ciencias.edd.Lista;
+-import org.junit.Assert;
+-import org.junit.Rule;
+-import org.junit.Test;
+-import org.junit.rules.Timeout;
+-
+-/**
+- * Clase para pruebas unitarias de la clase {@link Lista}.
+- */
+-public class TestLista {
+-
+-    /** Expiración para que ninguna prueba tarde más de 5 segundos. */
+-    @Rule public Timeout expiracion = Timeout.seconds(5);
+-
+-    /* Generador de números aleatorios. */
+-    private Random random;
+-    /* Número total de elementos. */
+-    private int total;
+-    /* La lista. */
+-    private Lista<String> lista;
+-
+-    /* Clase para probar estabilidad de MergeSort. */
+-    private class Par implements Comparable<Par> {
+-
+-        /* Valor del par.*/
+-        private int valor;
+-        /* Etiqueta del par.*/
+-        private int etiqueta;
+-
+-        /* Constructor. */
+-        public Par(int valor, int etiqueta) {
+-            this.valor = valor;
+-            this.etiqueta = etiqueta;
+-        }
+-
+-        /* Regresa el valor. */
+-        public int getValor() {
+-            return valor;
+-        }
+-
+-        /* Regresa la etiqueta. */
+-        public int getEtiqueta() {
+-            return etiqueta;
+-        }
+-
+-        /* Compara dos pares. */
+-        @Override public int compareTo(Par par) {
+-            return valor - par.valor;
+-        }
+-    }
+-
+-    /* Valida una lista. */
+-    private void validaLista(Lista<String> lista) {
+-        int longitud = lista.getLongitud();
+-        String[] arreglo = new String[longitud];
+-        int c = 0;
+-        for (String n : lista)
+-            arreglo[c++] = n;
+-        Assert.assertTrue(c == longitud);
+-        c = 0;
+-        IteradorLista<String> i = lista.iteradorLista();
+-        while (i.hasNext())
+-            Assert.assertTrue(arreglo[c++].equals(i.next()));
+-        Assert.assertTrue(c == longitud);
+-        c = longitud - 1;
+-        i.end();
+-        while (i.hasPrevious())
+-            Assert.assertTrue(arreglo[c--].equals(i.previous()));
+-    }
+-
+-    /* Convierte un entero en cadena. */
+-    private String str(int n) {
+-        return String.valueOf(n);
+-    }
+-
+-    /**
+-     * Crea un generador de números aleatorios para cada prueba, un número total
+-     * de elementos para nuestra lista, y una lista.
+-     */
+-    public TestLista() {
+-        random = new Random();
+-        total = 10 + random.nextInt(90);
+-        lista = new Lista<String>();
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#Lista}.
+-     */
+-    @Test public void testConstructor() {
+-        Assert.assertTrue(lista != null);
+-        Assert.assertTrue(lista.esVacia());
+-        Assert.assertTrue(lista.getLongitud() == 0);
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#getLongitud}.
+-     */
+-    @Test public void testGetLongitud() {
+-        Assert.assertTrue(lista.getLongitud() == 0);
+-        for (int i = 0; i < total/2; i++) {
+-            lista.agrega(str(random.nextInt(total)));
+-            Assert.assertTrue(lista.getLongitud() == i + 1);
+-        }
+-        for (int i = total/2; i < total; i++) {
+-            lista.agregaInicio(str(random.nextInt(total)));
+-            Assert.assertTrue(lista.getLongitud() == i + 1);
+-        }
+-        Assert.assertTrue(lista.getLongitud() == total);
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#getElementos}.
+-     */
+-    @Test public void testGetElementos() {
+-        Assert.assertTrue(lista.getElementos() == 0);
+-        for (int i = 0; i < total/2; i++) {
+-            lista.agrega(str(random.nextInt(total)));
+-            Assert.assertTrue(lista.getElementos() == i + 1);
+-        }
+-        for (int i = total/2; i < total; i++) {
+-            lista.agregaInicio(str(random.nextInt(total)));
+-            Assert.assertTrue(lista.getElementos() == i + 1);
+-        }
+-        Assert.assertTrue(lista.getElementos() == total);
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#esVacia}.
+-     */
+-    @Test public void testEsVacia() {
+-        Assert.assertTrue(lista.esVacia());
+-        lista.agrega(str(random.nextInt(total)));
+-        Assert.assertFalse(lista.esVacia());
+-        lista.eliminaUltimo();
+-        Assert.assertTrue(lista.esVacia());
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#agrega}.
+-     */
+-    @Test public void testAgrega() {
+-        try {
+-            lista.agrega(null);
+-            Assert.fail();
+-        } catch (IllegalArgumentException iae) {}
+-        validaLista(lista);
+-        lista.agrega("1");
+-        validaLista(lista);
+-        Assert.assertTrue(lista.getUltimo().equals("1"));
+-        lista.agregaInicio("2");
+-        validaLista(lista);
+-        Assert.assertFalse(lista.getUltimo().equals("2"));
+-        for (int i = 0; i < total; i++) {
+-            String r = str(random.nextInt(total));
+-            lista.agrega(r);
+-            validaLista(lista);
+-            Assert.assertTrue(lista.getUltimo().equals(r));
+-        }
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#agregaFinal}.
+-     */
+-    @Test public void testAgregaFinal() {
+-        try {
+-            lista.agregaFinal(null);
+-            Assert.fail();
+-        } catch (IllegalArgumentException iae) {}
+-        validaLista(lista);
+-        lista.agregaFinal("1");
+-        validaLista(lista);
+-        Assert.assertTrue(lista.getUltimo().equals("1"));
+-        lista.agregaInicio("2");
+-        validaLista(lista);
+-        Assert.assertFalse(lista.getUltimo().equals("2"));
+-        for (int i = 0; i < total; i++) {
+-            String r = str(random.nextInt(total));
+-            lista.agregaFinal(r);
+-            validaLista(lista);
+-            Assert.assertTrue(lista.getUltimo().equals(r));
+-        }
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#agregaInicio}.
+-     */
+-    @Test public void testAgregaInicio() {
+-        try {
+-            lista.agregaInicio(null);
+-            Assert.fail();
+-        } catch (IllegalArgumentException iae) {}
+-        validaLista(lista);
+-        lista.agregaInicio("1");
+-        validaLista(lista);
+-        Assert.assertTrue(lista.getPrimero().equals("1"));
+-        lista.agregaFinal("2");
+-        validaLista(lista);
+-        Assert.assertFalse(lista.getPrimero().equals("2"));
+-        for (int i = 0; i < total; i++) {
+-            String r = str(random.nextInt(total));
+-            lista.agregaInicio(r);
+-            validaLista(lista);
+-            Assert.assertTrue(lista.getPrimero().equals(r));
+-        }
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#inserta}.
+-     */
+-    @Test public void testInserta() {
+-        int ini = random.nextInt(total);
+-        Lista<String> otra = new Lista<String>();
+-        for (int i = 0; i < total; i++) {
+-            otra.agregaInicio(str(ini + i));
+-            lista.inserta(-1, str(ini + i));
+-            validaLista(lista);
+-            Assert.assertTrue(lista.equals(otra));
+-            Assert.assertTrue(lista.getPrimero().equals(str(ini + i)));
+-        }
+-        for (int i = -1; i <= total; i++)
+-            try {
+-                lista.inserta(i, null);
+-                Assert.fail();
+-            } catch (IllegalArgumentException iae) {}
+-        lista = new Lista<String>();
+-        otra = new Lista<String>();
+-        for (int i = 0; i < total; i++) {
+-            otra.agregaInicio(str(ini + i));
+-            lista.inserta(0, str(ini + i));
+-            validaLista(lista);
+-            Assert.assertTrue(lista.equals(otra));
+-            Assert.assertTrue(lista.getPrimero().equals(str(ini + i)));
+-        }
+-        lista = new Lista<String>();
+-        otra = new Lista<String>();
+-        for (int i = 0; i < total; i++) {
+-            otra.agregaFinal(str(ini + i));
+-            lista.inserta(lista.getLongitud(), str(ini + i));
+-            validaLista(lista);
+-            Assert.assertTrue(lista.equals(otra));
+-            Assert.assertTrue(lista.getUltimo().equals(str(ini + i)));
+-        }
+-        for (int i = 0; i < total; i++) {
+-            int m = 1 + random.nextInt(total-2);
+-            lista = new Lista<String>();
+-            otra = new Lista<String>();
+-            for (int j = 0; j < total; j++) {
+-                otra.agregaFinal(str(ini + j));
+-                if (j != m)
+-                    lista.agregaFinal(str(ini + j));
+-                validaLista(lista);
+-                validaLista(otra);
+-            }
+-            Assert.assertTrue(otra.getLongitud() == lista.getLongitud() + 1);
+-            lista.inserta(m, str(ini + m));
+-            validaLista(lista);
+-            Assert.assertTrue(lista.equals(otra));
+-        }
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#elimina}.
+-     */
+-    @Test public void testElimina() {
+-        lista.elimina(null);
+-        validaLista(lista);
+-        Assert.assertTrue(lista.esVacia());
+-        lista.elimina(str(0));
+-        validaLista(lista);
+-        Assert.assertTrue(lista.esVacia());
+-        lista.agrega("1");
+-        Assert.assertFalse(lista.esVacia());
+-        lista.eliminaUltimo();
+-        Assert.assertTrue(lista.esVacia());
+-        int d = random.nextInt(total);
+-        int m = -1;
+-        for (int i = 0; i < total; i++) {
+-            lista.agregaInicio(str(d++));
+-            if (i == total / 2)
+-                m = d - 1;
+-        }
+-        String p = lista.getPrimero();
+-        String u = lista.getUltimo();
+-        Assert.assertTrue(lista.contiene(p));
+-        Assert.assertTrue(lista.contiene(str(m)));
+-        Assert.assertTrue(lista.contiene(u));
+-        lista.elimina(p);
+-        validaLista(lista);
+-        Assert.assertFalse(lista.contiene(p));
+-        Assert.assertTrue(lista.getLongitud() == --total);
+-        lista.elimina(str(m));
+-        validaLista(lista);
+-        Assert.assertFalse(lista.contiene(str(m)));
+-        Assert.assertTrue(lista.getLongitud() == --total);
+-        lista.elimina(u);
+-        validaLista(lista);
+-        Assert.assertFalse(lista.contiene(u));
+-        Assert.assertTrue(lista.getLongitud() == --total);
+-        while (!lista.esVacia()) {
+-            lista.elimina(lista.getPrimero());
+-            validaLista(lista);
+-            Assert.assertTrue(lista.getLongitud() == --total);
+-            if (lista.esVacia())
+-                continue;
+-            lista.elimina(lista.getUltimo());
+-            validaLista(lista);
+-            Assert.assertTrue(lista.getLongitud() == --total);
+-        }
+-        try {
+-            lista.getPrimero();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-        try {
+-            lista.getUltimo();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-        lista.agregaFinal("1");
+-        lista.agregaFinal("2");
+-        lista.agregaFinal("3");
+-        lista.agregaFinal("2");
+-        lista.elimina("2");
+-        Assert.assertTrue(lista.get(0).equals("1"));
+-        Assert.assertTrue(lista.get(1).equals("3"));
+-        Assert.assertTrue(lista.get(2).equals("2"));
+-        lista.limpia();
+-        lista.agregaFinal("1");
+-        lista.agregaFinal("2");
+-        lista.agregaFinal("1");
+-        lista.agregaFinal("3");
+-        lista.elimina("1");
+-        Assert.assertTrue(lista.get(0).equals("2"));
+-        Assert.assertTrue(lista.get(1).equals("1"));
+-        Assert.assertTrue(lista.get(2).equals("3"));
+-        lista.limpia();
+-        lista.agregaFinal("1");
+-        lista.agregaFinal("2");
+-        lista.agregaFinal("3");
+-        lista.elimina("2");
+-        Assert.assertTrue(lista.get(0).equals("1"));
+-        Assert.assertTrue(lista.get(1).equals("3"));
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#eliminaPrimero}.
+-     */
+-    @Test public void testEliminaPrimero() {
+-        try {
+-            lista.eliminaPrimero();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-        String[] a = new String[total];
+-        for (int i = 0; i < total; i++) {
+-            a[i] = str(random.nextInt(total));
+-            lista.agrega(a[i]);
+-        }
+-        int i = 0;
+-        int n = total;
+-        while (!lista.esVacia()) {
+-            Assert.assertTrue(n-- == lista.getLongitud());
+-            String k = lista.eliminaPrimero();
+-            validaLista(lista);
+-            Assert.assertTrue(k.equals(a[i++]));
+-        }
+-        try {
+-            lista.eliminaPrimero();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#eliminaUltimo}.
+-     */
+-    @Test public void testEliminaUltimo() {
+-        try {
+-            lista.eliminaUltimo();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-        String[] a = new String[total];
+-        for (int i = 0; i < total; i++) {
+-            a[i] = str(random.nextInt(total));
+-            lista.agrega(a[i]);
+-        }
+-        int i = 0;
+-        int n = total;
+-        while (!lista.esVacia()) {
+-            Assert.assertTrue(n-- == lista.getLongitud());
+-            String k = lista.eliminaUltimo();
+-            validaLista(lista);
+-            Assert.assertTrue(k.equals(a[total - ++i]));
+-        }
+-        try {
+-            lista.eliminaUltimo();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#contiene}.
+-     */
+-    @Test public void testContiene() {
+-        String r = str(random.nextInt(total));
+-        Assert.assertFalse(lista.contiene(r));
+-        int d = random.nextInt(total);
+-        int m = -1;
+-        int n = d - 1;
+-        for (int i = 0; i < total; i++) {
+-            lista.agrega(str(d++));
+-            if (i == total/2)
+-                m = d - 1;
+-        }
+-        Assert.assertTrue(lista.contiene(str(m)));
+-        Assert.assertTrue(lista.contiene(new String(str(m))));
+-        Assert.assertFalse(lista.contiene(str(n)));
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#reversa}.
+-     */
+-    @Test public void testReversa() {
+-        Lista<String> reversa = lista.reversa();
+-        Assert.assertTrue(reversa.esVacia());
+-        Assert.assertFalse(reversa == lista);
+-        for (int i = 0; i < total; i++)
+-            lista.agrega(str(random.nextInt(total)));
+-        reversa = lista.reversa();
+-        Assert.assertFalse(lista == reversa);
+-        Assert.assertTrue(reversa.getLongitud() == lista.getLongitud());
+-        IteradorLista<String> il = lista.iteradorLista();
+-        IteradorLista<String> ir = reversa.iteradorLista();
+-        ir.end();
+-        while (il.hasNext() && ir.hasPrevious())
+-            Assert.assertTrue(il.next().equals(ir.previous()));
+-        Assert.assertFalse(il.hasNext());
+-        Assert.assertFalse(ir.hasPrevious());
+-        validaLista(reversa);
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#copia}.
+-     */
+-    @Test public void testCopia() {
+-        Lista<String> copia = lista.copia();
+-        Assert.assertTrue(copia.esVacia());
+-        Assert.assertFalse(copia == lista);
+-        for (int i = 0; i < total; i++)
+-            lista.agrega(str(random.nextInt(total)));
+-        copia = lista.copia();
+-        Assert.assertFalse(lista == copia);
+-        Assert.assertTrue(copia.getLongitud() == lista.getLongitud());
+-        Iterator<String> il = lista.iterator();
+-        Iterator<String> ic = copia.iterator();
+-        while (il.hasNext() && ic.hasNext())
+-            Assert.assertTrue(il.next().equals(ic.next()));
+-        Assert.assertFalse(il.hasNext());
+-        Assert.assertFalse(ic.hasNext());
+-        validaLista(copia);
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#limpia}.
+-     */
+-    @Test public void testLimpia() {
+-        String primero = str(random.nextInt(total));
+-        lista.agrega(primero);
+-        for (int i = 0; i < total; i++)
+-            lista.agrega(str(random.nextInt(total)));
+-        String ultimo = str(random.nextInt(total));
+-        lista.agrega(ultimo);
+-        Assert.assertFalse(lista.esVacia());
+-        Assert.assertTrue(primero.equals(lista.getPrimero()));
+-        Assert.assertTrue(ultimo.equals(lista.getUltimo()));
+-        Assert.assertFalse(lista.esVacia());
+-        Assert.assertFalse(lista.getLongitud() == 0);
+-        lista.limpia();
+-        validaLista(lista);
+-        Assert.assertTrue(lista.esVacia());
+-        Assert.assertTrue(lista.getLongitud() == 0);
+-        int c = 0;
+-        for (String n : lista)
+-            c++;
+-        Assert.assertTrue(c == 0);
+-        try {
+-            lista.getPrimero();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-        try {
+-            lista.getUltimo();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#getPrimero}.
+-     */
+-    @Test public void testGetPrimero() {
+-        try {
+-            lista.getPrimero();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-        for (int i = 0; i < total; i++) {
+-            String r = str(random.nextInt(total));
+-            lista.agregaInicio(r);
+-            Assert.assertTrue(lista.getPrimero().equals(r));
+-        }
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#getUltimo}.
+-     */
+-    @Test public void testGetUltimo() {
+-        try {
+-            lista.getUltimo();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-        for (int i = 0; i < total; i++) {
+-            String r = str(random.nextInt(total));
+-            lista.agrega(r);
+-            Assert.assertTrue(lista.getUltimo().equals(r));
+-        }
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#get}.
+-     */
+-    @Test public void testGet() {
+-        String[] a = new String[total];
+-        for (int i = 0; i < total; i++) {
+-            a[i] = str(random.nextInt(total));
+-            lista.agrega(a[i]);
+-        }
+-        for (int i = 0; i < total; i++)
+-            Assert.assertTrue(lista.get(i).equals(a[i]));
+-        try {
+-            lista.get(-1);
+-            Assert.fail();
+-        } catch (ExcepcionIndiceInvalido eii) {}
+-        try {
+-            lista.get(-2);
+-            Assert.fail();
+-        } catch (ExcepcionIndiceInvalido eii) {}
+-        try {
+-            lista.get(total);
+-            Assert.fail();
+-        } catch (ExcepcionIndiceInvalido eii) {}
+-        try {
+-            lista.get(total*2);
+-            Assert.fail();
+-        } catch (ExcepcionIndiceInvalido eii) {}
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#indiceDe}.
+-     */
+-    @Test public void testIndiceDe() {
+-        String r = str(random.nextInt(total));
+-        Assert.assertTrue(lista.indiceDe(r) == -1);
+-        int ini = random.nextInt(total);
+-        String[] a = new String[total];
+-        for (int i = 0; i < total; i++) {
+-            a[i] = str(ini + i);
+-            lista.agrega(a[i]);
+-        }
+-        for (int i = 0; i < total; i ++)
+-            Assert.assertTrue(i == lista.indiceDe(a[i]));
+-        Assert.assertTrue(lista.indiceDe(str(ini - 10)) == -1);
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#toString}.
+-     */
+-    @Test public void testToString() {
+-        Assert.assertTrue(lista.toString().equals("[]"));
+-        String[] a = new String[total];
+-        for (int i = 0; i < total; i++) {
+-            a[i] = str(i);
+-            lista.agrega(a[i]);
+-        }
+-        String s = "[";
+-        for (int i = 0; i < total-1; i++)
+-            s += String.format("%s, ", a[i]);
+-        s += String.format("%s]", a[total-1]);
+-        Assert.assertTrue(s.equals(lista.toString()));
+-    }
+-
+-    /**
+-     * Prueba unitaria para {@link Lista#equals}.
+-     */
+-    @Test public void testEquals() {
+-        Assert.assertFalse(lista.equals(null));
+-        Lista<String> otra = new Lista<String>();
+-        Assert.assertTrue(lista.equals(otra));
+-        for (int i = 0; i < total; i++) {
+-            String r = str(random.nextInt(total));
+-            lista.agrega(r);
+-            otra.agrega(new String(r));
+-        }
+-        Assert.assertTrue(lista.equals(otra));
+-        String u = lista.eliminaUltimo();
+-        Assert.assertFalse(lista.equals(otra));
+-        lista.agrega(u + "x");
+-        Assert.assertFalse(lista.equals(otra));
+-        Assert.assertFalse(lista.equals(""));
+-        Assert.assertFalse(lista.equals(null));
+-    }
+-
+-    /**
+-     * Prueba unitaria para la implementación {@link Iterator#hasNext} a través
+-     * del método {@link Lista#iterator}.
+-     */
+-    @Test public void testIteradorHasNext() {
+-        Iterator<String> iterador = lista.iterator();
+-        Assert.assertFalse(iterador.hasNext());
+-        lista.agrega("-1");
+-        iterador = lista.iterator();
+-        Assert.assertTrue(iterador.hasNext());
+-        for (int i = 0; i < total; i++)
+-            lista.agrega(str(i));
+-        iterador = lista.iterator();
+-        for (int i = 0; i < total; i++)
+-            iterador.next();
+-        Assert.assertTrue(iterador.hasNext());
+-        iterador.next();
+-        Assert.assertFalse(iterador.hasNext());
+-    }
+-
+-    /**
+-     * Prueba unitaria para la implementación {@link Iterator#next} a través del
+-     * método {@link Lista#iterator}.
+-     */
+-    @Test public void testIteradorNext() {
+-        Iterator<String> iterador = lista.iterator();
+-        try {
+-            iterador.next();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-        for (int i = 0; i < total; i++)
+-            lista.agrega(str(i));
+-        iterador = lista.iterator();
+-        for (int i = 0; i < total; i++)
+-            Assert.assertTrue(iterador.next().equals(str(i)));
+-        try {
+-            iterador.next();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-    }
+-
+-    /**
+-     * Prueba unitaria para la implementación {@link IteradorLista#hasPrevious}
+-     * a través del método {@link Lista#iteradorLista}.
+-     */
+-    @Test public void testIteradorHasPrevious() {
+-        IteradorLista<String> iterador = lista.iteradorLista();
+-        Assert.assertFalse(iterador.hasPrevious());
+-        lista.agrega("-1");
+-        iterador = lista.iteradorLista();
+-        iterador.next();
+-        Assert.assertTrue(iterador.hasPrevious());
+-        for (int i = 0; i < total; i++)
+-            lista.agrega(str(i));
+-        iterador = lista.iteradorLista();
+-        iterador.next();
+-        Assert.assertTrue(iterador.hasPrevious());
+-        iterador.previous();
+-        Assert.assertFalse(iterador.hasPrevious());
+-        iterador.end();
+-        Assert.assertTrue(iterador.hasPrevious());
+-    }
+-
+-    /**
+-     * Prueba unitaria para la implementación {@link IteradorLista#previous} a
+-     * través del método {@link Lista#iteradorLista}.
+-     */
+-    @Test public void testIteradorPrevious() {
+-        IteradorLista<String> iterador = lista.iteradorLista();
+-        try {
+-            iterador.previous();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-        for (int i = 0; i < total; i++)
+-            lista.agrega(str(i));
+-        iterador = lista.iteradorLista();
+-        iterador.end();
+-        for (int i = 0; i < total; i++)
+-            Assert.assertTrue(iterador.previous().equals(str(total - i - 1)));
+-        try {
+-            iterador.previous();
+-            Assert.fail();
+-        } catch (NoSuchElementException nsee) {}
+-    }
+-
+-    /**
+-     * Prueba unitaria para la implementación {@link IteradorLista#start} a
+-     * través del método {@link Lista#iteradorLista}.
+-     */
+-    @Test public void testIteradorStart() {
+-        for (int i = 0; i < total; i++)
+-            lista.agrega(str(i));
+-        IteradorLista<String> iterador = lista.iteradorLista();
+-        while (iterador.hasNext())
+-            iterador.next();
+-        Assert.assertTrue(iterador.hasPrevious());
+-        iterador.start();
+-        Assert.assertFalse(iterador.hasPrevious());
+-        Assert.assertTrue(iterador.hasNext());
+-        Assert.assertTrue(iterador.next().equals("0"));
+-    }
+-
+-    /**
+-     * Prueba unitaria para la implementación {@link IteradorLista#end} a través
+-     * del método {@link Lista#iteradorLista}.
+-     */
+-    @Test public void testIteradorEnd() {
+-        for (int i = 0; i < total; i++)
+-            lista.agrega(str(i));
+-        IteradorLista<String> iterador = lista.iteradorLista();
+-        iterador.end();
+-        Assert.assertFalse(iterador.hasNext());
+-        Assert.assertTrue(iterador.hasPrevious());
+-        Assert.assertTrue(iterador.previous().equals(str(total - 1)));
+-    }
+-}
